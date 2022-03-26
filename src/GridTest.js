@@ -1,43 +1,101 @@
 import React from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import mentorData from "./data.json";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import deneme from "./images/photosnap.svg";
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
+import Typography from "@mui/material/Typography";
+import UserData from "./data.json";
+// import Manage from "./FrontendMentorFiles/images/manage.svg";
 export default function GridTest() {
+  const renderUserData = () => {
+    // let filteredData = UserData.filter((user) => user.languages.includes() || user.role);
+    return UserData.map((user) => (
+      // Each card is created out of this xs 8 grid
+      <Grid className={"card"} item xs={8}>
+        <Paper>
+          <Grid container>
+            {/* left side of the card */}
+            <Grid item xs={6}>
+              {/* <img src={user.company} alt="" /> */}
+              <Grid container>
+                <Typography variant="caption" display="block" gutterBottom>
+                  {user.company}
+                </Typography>
+                {user.new ? (
+                  <Typography
+                    variant="caption"
+                    className={"new-tag"}
+                    display="block"
+                    gutterBottom
+                  >
+                    NEW!
+                  </Typography>
+                ) : (
+                  ""
+                )}
+                {user.featured ? (
+                  <Typography
+                    variant="caption"
+                    className={"featured-tag"}
+                    display="block"
+                    gutterBottom
+                  >
+                    FEATURED
+                  </Typography>
+                ) : (
+                  ""
+                )}
+              </Grid>
+              {/* Middle section */}
+              <Typography variant="body2">{user.position}</Typography>
+              {/* Bottom section, rendering postedAt, contract and location attributes of users. */}
+              <Grid container gap={2}>
+                <Grid item>
+                  <Typography variant="caption">{user.postedAt}</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography className={"list-style"} variant="caption">
+                    {user.contract}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="caption">{user.location}</Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            {/* right side */}
+            <Grid
+              container
+              gap={2}
+              alignItems={"center"}
+              justifyContent={"end"}
+              xs={6}
+              sx={{ fontWeight: "bold" }}
+            >
+              <Typography className={"attribute-tag"} variant="caption">
+                {user.role}
+              </Typography>
+              <Typography className={"attribute-tag"} variant="caption">
+                {user.level}
+              </Typography>
+              {Object.values(user.languages).map((value) => (
+                <Typography className={"attribute-tag"} variant="caption">
+                  {value}
+                </Typography>
+              ))}
+            </Grid>
+          </Grid>
+        </Paper>
+      </Grid>
+    ));
+  };
   return (
     <div>
-      <img src={deneme} />
-      <Box>
-        <Grid container direction="column">
-          {mentorData.map((user) => (
-            <Grid key={user.logo} item lg={12}>
-              <img src={user.logo} alt="hey" />
-              {console.log(user.logo)}
-            </Grid>
-          ))}
-
-          <Grid item xs={4}>
-            <Item>xs=4</Item>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>xs=4</Item>
-          </Grid>
-          <Grid item xs={8}>
-            <Item>xs=8</Item>
-          </Grid>
+      <Box sx={{ mt: 4 }}>
+        <Grid container gap={2} justifyContent="center">
+          {renderUserData()}
         </Grid>
       </Box>
     </div>

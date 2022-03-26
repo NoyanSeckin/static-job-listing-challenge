@@ -1,17 +1,16 @@
-import React, { Component } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
+import React from "react";
+import "./App.css";
 import GridTest from "./GridTest";
-
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-export default class App extends Component {
-  render() {
-    return (
-      <div>
-        <GridTest></GridTest>
-      </div>
-    );
-  }
+import DesktopHeader from "./FrontendMentorFiles/images/bg-header-desktop.svg";
+export default function App() {
+  return (
+    <div>
+      <img
+        style={{ width: "100%", background: "hsl(180, 29%, 50%)" }}
+        src={DesktopHeader}
+        alt=""
+      />
+      <GridTest></GridTest>
+    </div>
+  );
 }
