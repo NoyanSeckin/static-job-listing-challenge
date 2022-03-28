@@ -6,24 +6,41 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import UserData from "./data.json";
+import {UserData} from "./data";
 // import Manage from "./FrontendMentorFiles/images/manage.svg";
 export default function GridTest() {
+  const renderSearchBar = () => {
+    return(
+      <Grid container className={"search-bar"} xs={
+        9}>
+       <Grid item   >
+        <Typography variant="body1">
+            CSS
+        </Typography>
+       </Grid>
+      </Grid>
+    )
+  }
   const renderUserData = () => {
     // let filteredData = UserData.filter((user) => user.languages.includes() || user.role);
     return UserData.map((user) => (
-      // Each card is created out of this xs 8 grid
-      <Grid className={"card"} item xs={8}>
-        <Paper>
+      // Each card is created out of this xs 9 grid
+      <Grid className={"card"} item xs={9}>
+
+        <Paper sx={{display: 'flex', py:2}}>
+         <img className={"user-logo"} src={user.logo.default} alt="sa"/>
+          
           <Grid container>
-            {/* left side of the card */}
-            <Grid item xs={6}>
-              {/* <img src={user.company} alt="" /> */}
+            
+            <Grid container  xs={6}>
+             {/* left side of the card */}
+
               <Grid container>
+
                 <Typography variant="caption" display="block" gutterBottom>
                   {user.company}
                 </Typography>
-                {user.new ? (
+                {user.new && (
                   <Typography
                     variant="caption"
                     className={"new-tag"}
@@ -32,10 +49,8 @@ export default function GridTest() {
                   >
                     NEW!
                   </Typography>
-                ) : (
-                  ""
                 )}
-                {user.featured ? (
+                {user.featured &&  (
                   <Typography
                     variant="caption"
                     className={"featured-tag"}
@@ -44,8 +59,6 @@ export default function GridTest() {
                   >
                     FEATURED
                   </Typography>
-                ) : (
-                  ""
                 )}
               </Grid>
               {/* Middle section */}
@@ -72,7 +85,7 @@ export default function GridTest() {
               alignItems={"center"}
               justifyContent={"end"}
               xs={6}
-              sx={{ fontWeight: "bold" }}
+              sx={{ fontWeight: "bold", pr: 4 }}
             >
               <Typography className={"attribute-tag"} variant="caption">
                 {user.role}
@@ -81,7 +94,7 @@ export default function GridTest() {
                 {user.level}
               </Typography>
               {Object.values(user.languages).map((value) => (
-                <Typography className={"attribute-tag"} variant="caption">
+                <Typography className={"attribute-tag"}  variant="caption">
                   {value}
                 </Typography>
               ))}
@@ -90,9 +103,13 @@ export default function GridTest() {
         </Paper>
       </Grid>
     ));
+  
   };
   return (
     <div>
+      {/* Absolute positioned single box */}
+      {renderSearchBar()}
+       {/* Cards container */}
       <Box sx={{ mt: 4 }}>
         <Grid container gap={2} justifyContent="center">
           {renderUserData()}
