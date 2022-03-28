@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -6,100 +7,125 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import ClearIcon from '@mui/icons-material/Clear';
 import {UserData} from "./data";
 // import Manage from "./FrontendMentorFiles/images/manage.svg";
 export default function GridTest() {
+
+  const [searchList, setSearchList] = useState([]);
   const renderSearchBar = () => {
     return(
-      <Grid container className={"search-bar"} xs={
-        9}>
+      <Grid container justifyContent={"space-between"} className={"search-bar"} xs={
+        9} sx={{px: 4}}>
+       <Grid item sx={{display: "flex"}} gap={1}  >
+        {searchList.map(listItem => (
+            <Box sx={{display: "flex"}}>
+            <Typography className={"attribute-tag"} variant="body2">
+              {listItem} 
+            </Typography> 
+            <ClearIcon onClick={()=> setSearchList(searchList => [searchList.filter(el => el !== listItem)]) }></ClearIcon>
+            </Box>
+          ))}
+       </Grid>
        <Grid item   >
         <Typography variant="body1">
-            CSS
+          Clear
         </Typography>
        </Grid>
       </Grid>
     )
   }
+
+  const addToSearchbar = (item) => {
+   if(!searchList.includes(item)){
+     setSearchList(searchList => [...searchList, item] )
+   }else{
+     console.log("Cannot add ",item);
+   }
+  }
+  const renderCardsTop = (userCompany, userNew, userFeatured) =>{
+    return(
+      <Grid container>
+        <Typography variant="caption" display="block" gutterBottom>
+                    {userCompany}
+        </Typography>
+         {userNew && (
+           <Typography
+           variant="caption"
+           className={"new-tag"}
+           display="block"
+           gutterBottom
+            >
+           NEW!
+          </Typography>
+          )}
+        {userFeatured &&  (
+          <Typography
+          variant="caption"
+          className={"featured-tag"}
+          display="block"
+          gutterBottom
+          >
+          FEATURED
+          </Typography>
+         )}
+      </Grid>
+    )
+  }
+  const renderCardsBottom = (userPostedAt, userContract, userLocation) =>{
+    return(
+      <Grid container gap={2}>
+        <Grid item>
+          <Typography variant="caption">{userPostedAt}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography className={"list-style"} variant="caption">
+            {userContract}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="caption">{userLocation}</Typography>
+        </Grid>
+      </Grid>
+    )
+  }
+  const renderCardsRightSide = (userRole, userLevel, userLanguages) => {
+    return(
+      <Grid
+      container
+      gap={2}
+      alignItems={"center"}
+      justifyContent={"end"}
+      xs={6}
+      sx={{ fontWeight: "bold", pr: 4 }}
+    >
+      <Typography onClick={ ()=> addToSearchbar(userRole)} className={"attribute-tag"} variant="caption">
+        {userRole}
+      </Typography>
+      <Typography className={"attribute-tag"} variant="caption">
+        {userLevel}
+      </Typography>
+      {Object.values(userLanguages).map((value) => (
+        <Typography className={"attribute-tag"}  variant="caption">
+          {value}
+        </Typography>
+      ))}
+    </Grid>
+    )
+  }
+
   const renderUserData = () => {
     // let filteredData = UserData.filter((user) => user.languages.includes() || user.role);
     return UserData.map((user) => (
-      // Each card is created out of this xs 9 grid
       <Grid className={"card"} item xs={9}>
-
         <Paper sx={{display: 'flex', py:2}}>
          <img className={"user-logo"} src={user.logo.default} alt="sa"/>
-          
-          <Grid container>
-            
             <Grid container  xs={6}>
-             {/* left side of the card */}
-
-              <Grid container>
-
-                <Typography variant="caption" display="block" gutterBottom>
-                  {user.company}
-                </Typography>
-                {user.new && (
-                  <Typography
-                    variant="caption"
-                    className={"new-tag"}
-                    display="block"
-                    gutterBottom
-                  >
-                    NEW!
-                  </Typography>
-                )}
-                {user.featured &&  (
-                  <Typography
-                    variant="caption"
-                    className={"featured-tag"}
-                    display="block"
-                    gutterBottom
-                  >
-                    FEATURED
-                  </Typography>
-                )}
-              </Grid>
-              {/* Middle section */}
+              {renderCardsTop(user.company, user.new, user.featured)}
               <Typography variant="body2">{user.position}</Typography>
-              {/* Bottom section, rendering postedAt, contract and location attributes of users. */}
-              <Grid container gap={2}>
-                <Grid item>
-                  <Typography variant="caption">{user.postedAt}</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={"list-style"} variant="caption">
-                    {user.contract}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="caption">{user.location}</Typography>
-                </Grid>
-              </Grid>
+              {renderCardsBottom(user.postedAt, user.contract, user.location)}
             </Grid>
-            {/* right side */}
-            <Grid
-              container
-              gap={2}
-              alignItems={"center"}
-              justifyContent={"end"}
-              xs={6}
-              sx={{ fontWeight: "bold", pr: 4 }}
-            >
-              <Typography className={"attribute-tag"} variant="caption">
-                {user.role}
-              </Typography>
-              <Typography className={"attribute-tag"} variant="caption">
-                {user.level}
-              </Typography>
-              {Object.values(user.languages).map((value) => (
-                <Typography className={"attribute-tag"}  variant="caption">
-                  {value}
-                </Typography>
-              ))}
-            </Grid>
-          </Grid>
+            {renderCardsRightSide(user.role, user.level, user.languages)}
         </Paper>
       </Grid>
     ));
@@ -107,8 +133,7 @@ export default function GridTest() {
   };
   return (
     <div>
-      {/* Absolute positioned single box */}
-      {renderSearchBar()}
+      { searchList.length > 0 && renderSearchBar()}
        {/* Cards container */}
       <Box sx={{ mt: 4 }}>
         <Grid container gap={2} justifyContent="center">
