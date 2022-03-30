@@ -43,7 +43,10 @@ body {
 .attribute-tag {
   color: hsl(180, 29%, 50%);
   background-color: hsl(180, 52%, 96%);
-  padding: 0 0.3rem;
+  border-radius: 5px;
+  padding: 0.2rem 0.3rem;
+  font-family: "Spartan" !important;
+  font-weight: 700 !important;
 }
 
 .attribute-tag:hover{
@@ -52,10 +55,18 @@ body {
   color: #fff;
  cursor: pointer;
 }
-
+.user-company-tag{
+}
 .user-logo{
   width: 70px;
   margin: 0 1.3rem;
+}
+
+.user-logo-mobile{
+  width: 45px;
+  position: absolute;
+  top: -35px;
+  left: 10px;
 }
 
 .search-bar{
