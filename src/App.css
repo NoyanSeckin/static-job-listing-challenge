@@ -60,12 +60,38 @@ body {
 
 .search-bar{
   margin: 0 auto !important;
+  padding: 0.7rem 0;
+  border-radius: 5px;
   background-color: #fff;
   position: absolute;
-  top: 100px;
   left: 0;
   right: 0;
+  top: 21vh;
 }
 .d-none{
   display: none;
+}
+.clear-tag{
+  color: hsl(180, 29%, 50%);
+}
+.clear-tag:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.searchlist-tag{
+  color: hsl(180, 29%, 50%);
+  background-color: hsl(180, 52%, 96%);
+  padding: 0 0.3rem;
+}
+
+.clear-icon{
+  background-color: hsl(180, 29%, 50%);;
+  color: #fff;
+  font-size: 19px !important;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.clear-icon:hover{
+  cursor: pointer;
+  background-color: black;
 }
