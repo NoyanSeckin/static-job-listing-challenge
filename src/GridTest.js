@@ -12,17 +12,19 @@ import {UserData} from "./data";
 // import Manage from "./FrontendMentorFiles/images/manage.svg";
 export default function GridTest() {
  
-  const [screenWidth, setScreenWidth] = useState(300);
+  const [screenWidth, setScreenWidth] = useState(500);
+  const mobileScreen = 400;
   const [searchList, setSearchList] = useState([]);
   const deleteFromSearchList = (listItem) => {
     const newSearchList = searchList.filter((el) => el !== listItem);
     setSearchList(newSearchList);
   }
   const renderSearchBar = () => {
+   if( searchList.length > 0){
     return(
       <Grid container justifyContent={"space-between"} className={"search-bar"} xs={
         9} sx={{px: 4}}>
-       <Grid item sx={{display: "flex"}} gap={1}  >
+       <Grid item xs={9} gap={1}  >
         {searchList.map((listItem) => {
           return (
             <Box key={listItem} sx={{display: "flex"}}>
@@ -30,18 +32,19 @@ export default function GridTest() {
                 {listItem} 
               </Typography> 
               <ClearIcon className={"clear-icon"}
-              onClick={() => deleteFromSearchList(listItem)}>
+               onClick={() => deleteFromSearchList(listItem)}>
               </ClearIcon>
             </Box>)
         })}
        </Grid>
-       <Grid item   >
+       <Grid item  xs={3}>
         <Typography className={"clear-tag"} onClick={()=> setSearchList([])} variant="caption">
           Clear
         </Typography>
        </Grid>
       </Grid>
     )
+    }
   }
 
   const addToSearchbar = (item) => {
@@ -140,17 +143,20 @@ export default function GridTest() {
           display: 'flex' , 
           flexDirection: { xs: 'column', md: 'row' }, 
           position: 'relative',
-          py:2,
-          pl: {xs: 2}
+          py: {xs: 3,md: 2},
+          pl: {xs: 2},
+          mt: {xs: searchList.length > 0 && 5}
           }}>
-          {screenWidth > 500 ? 
+          {screenWidth > mobileScreen ? 
           <img className={"user-logo"} src={user.logo.default} alt="user-logo"/> 
-          : <img className={"user-logo-mobile"} src={user.logo.default} alt="user-logo"/>}
+          : 
+          <img className={"user-logo-mobile"} src={user.logo.default} alt="user-logo"/>}
             <Grid container  lg={6}>
               {renderCardsTop(user.company, user.new, user.featured)}
               <Typography sx={{fontFamily: "Spartan", fontWeight: '700'}} variant="body2">{user.position}</Typography>
               {renderCardsBottom(user.postedAt, user.contract, user.location)}
             </Grid>
+            {screenWidth < mobileScreen && <hr className={'mobile-hr'}/> }
             {renderCardsRightSide(user.role, user.level, user.languages, user.tools)}
         </Paper>
       </Grid>
@@ -160,9 +166,9 @@ export default function GridTest() {
   return (
     <div>
        {/* Cards container */}
-      <Box  sx={{ mt: 4 }}>
-        { searchList.length > 0 && renderSearchBar()}
-        <Grid container sx={{gap: {lg: 2, xs: 5}}} justifyContent="center">
+      <Box  sx={{ mt: 5 }}>
+        {renderSearchBar()}
+        <Grid container sx={{justifyContent: "center", gap: {lg: 2, xs: 5}}} >
           {renderUserCard()}
         </Grid>
       </Box>

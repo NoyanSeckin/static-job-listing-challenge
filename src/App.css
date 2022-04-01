@@ -1,13 +1,60 @@
-/* body {
-  background-color: black;
-} */
+/* Css reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* Css reset finished */
 body {
   background-color: hsl(180, 52%, 96%);
-
-  /* background-color: black; */
 }
 .mx-auto {
   margin: 0 auto;
+}
+
+.header {
+  background-image: url("./FrontendMentorFiles/images/bg-header-desktop.svg");
+  background-color: hsl(180, 29%, 50%);
+  height: 30vh;
+  width: 100%;
 }
 
 .new-tag {
@@ -62,12 +109,7 @@ body {
   margin: 0 1.3rem;
 }
 
-.user-logo-mobile{
-  width: 45px;
-  position: absolute;
-  top: -35px;
-  left: 10px;
-}
+
 
 .search-bar{
   margin: 0 auto !important;
@@ -77,7 +119,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 21vh;
+  top: 25vh;
 }
 .d-none{
   display: none;
@@ -93,6 +135,7 @@ body {
   color: hsl(180, 29%, 50%);
   background-color: hsl(180, 52%, 96%);
   padding: 0 0.3rem;
+  font-weight: 700 !important;
 }
 
 .clear-icon{
@@ -105,4 +148,18 @@ body {
 .clear-icon:hover{
   cursor: pointer;
   background-color: black;
+}
+
+/* Mobile */
+
+.mobile-hr{
+  width: 90%;
+  margin-right: 1.3rem;
+}
+
+.user-logo-mobile{
+  width: 45px;
+  position: absolute;
+  top: -30px;
+  left: 20px;
 }
