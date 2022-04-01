@@ -1,19 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-// import Card from "@mui/material/Card";
-// import CardActions from "@mui/material/CardActions";
-// import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import ClearIcon from '@mui/icons-material/Clear';
 import {UserData} from "./data";
-// import Manage from "./FrontendMentorFiles/images/manage.svg";
+import UseWindowDimensions from "./UseWindowDimensions";
 export default function GridTest() {
- 
-  const [screenWidth, setScreenWidth] = useState(500);
-  const mobileScreen = 400;
+  // Dynamic client window dimensions for switching to responsive
+  const { height, width } = UseWindowDimensions();
+  const mobileScreen = 350;
+
   const [searchList, setSearchList] = useState([]);
   const deleteFromSearchList = (listItem) => {
     const newSearchList = searchList.filter((el) => el !== listItem);
@@ -147,7 +145,7 @@ export default function GridTest() {
           pl: {xs: 2},
           mt: {xs: searchList.length > 0 && 5}
           }}>
-          {screenWidth > mobileScreen ? 
+          {width > mobileScreen ? 
           <img className={"user-logo"} src={user.logo.default} alt="user-logo"/> 
           : 
           <img className={"user-logo-mobile"} src={user.logo.default} alt="user-logo"/>}
@@ -156,7 +154,7 @@ export default function GridTest() {
               <Typography sx={{fontFamily: "Spartan", fontWeight: '700'}} variant="body2">{user.position}</Typography>
               {renderCardsBottom(user.postedAt, user.contract, user.location)}
             </Grid>
-            {screenWidth < mobileScreen && <hr className={'mobile-hr'}/> }
+            {width < mobileScreen && <hr className={'mobile-hr'}/> }
             {renderCardsRightSide(user.role, user.level, user.languages, user.tools)}
         </Paper>
       </Grid>
@@ -167,7 +165,7 @@ export default function GridTest() {
     <div>
        {/* Cards container */}
       <Box  sx={{ mt: 5 }}>
-        {renderSearchBar()}
+         {renderSearchBar()}
         <Grid container sx={{justifyContent: "center", gap: {lg: 2, xs: 5}}} >
           {renderUserCard()}
         </Grid>
