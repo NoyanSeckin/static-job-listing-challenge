@@ -22,7 +22,7 @@ export default function GridTest() {
     return(
       <Grid container justifyContent={"space-between"} className={"search-bar"} xs={
         9} sx={{px: 4}}>
-       <Grid item xs={9} gap={1}  >
+       <Grid item sx={{display: {lg: 'flex'}}} gap={1}  >
         {searchList.map((listItem) => {
           return (
             <Box key={listItem} sx={{display: "flex"}}>
@@ -35,7 +35,7 @@ export default function GridTest() {
             </Box>)
         })}
        </Grid>
-       <Grid item  xs={3}>
+       <Grid item>
         <Typography className={"clear-tag"} onClick={()=> setSearchList([])} variant="caption">
           Clear
         </Typography>
@@ -143,7 +143,7 @@ export default function GridTest() {
           position: 'relative',
           py: {xs: 3,md: 2},
           pl: {xs: 2},
-          mt: {xs: searchList.length > 0 && 5}
+          // mt: {xs: searchList.length > 0 && 5}
           }}>
           {width > mobileScreen ? 
           <img className={"user-logo"} src={user.logo.default} alt="user-logo"/> 
