@@ -135,7 +135,7 @@ export default function GridTest() {
       }
     })
     return filteredData.map((user) => (
-      <Grid className={"card"} item xs={9}>
+      <Grid className={"card"} item xs={9} sx={{borderLeft: user.new && user.featured && '5px solid hsl(180, 29%, 50%)'}}>
         <Paper 
         sx={{
           display: 'flex' , 
