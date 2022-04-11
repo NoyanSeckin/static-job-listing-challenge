@@ -7,10 +7,11 @@ import Typography from "@mui/material/Typography";
 import ClearIcon from '@mui/icons-material/Clear';
 import {UserData} from "./data";
 import UseWindowDimensions from "./UseWindowDimensions";
+import { SpaceBarRounded } from "@mui/icons-material";
 export default function GridTest() {
   // Dynamic client window dimensions for switching to responsive
   const { height, width } = UseWindowDimensions();
-  const mobileScreen = 350;
+  const mobileScreen = 400;
 
   const [searchList, setSearchList] = useState([]);
   const deleteFromSearchList = (listItem) => {
@@ -22,7 +23,8 @@ export default function GridTest() {
     return(
       <Grid container justifyContent={"space-between"} className={"search-bar"} xs={
         9} sx={{px: 4}}>
-       <Grid item sx={{display: {lg: 'flex'}}} gap={1}  >
+       {/* TODO: Mobile searchbar not fixed */}
+       <Grid item xs={6} sx={{display: 'flex', flexWrap: 'wrap'}} gap={1}  >
         {searchList.map((listItem) => {
           return (
             <Box key={listItem} sx={{display: "flex"}}>
@@ -35,11 +37,12 @@ export default function GridTest() {
             </Box>)
         })}
        </Grid>
-       <Grid item>
+       <Grid item >
         <Typography className={"clear-tag"} onClick={()=> setSearchList([])} variant="caption">
           Clear
         </Typography>
        </Grid>
+     
       </Grid>
     )
     }
@@ -50,6 +53,7 @@ export default function GridTest() {
      setSearchList(searchList => [...searchList, item] )
    }
   }
+  // Positions are named according to desktop design
   const renderCardsTop = (userCompany, userNew, userFeatured) =>{
     return(
       <Grid container>
@@ -159,14 +163,30 @@ export default function GridTest() {
         </Paper>
       </Grid>
     ));
-  
   };
+  const spacer = () =>{
+    let spacer;
+     if(searchList.length === 0){
+      spacer = '';
+    } else if(searchList.length <= 3 ){
+      spacer = 'spacer'
+    } else if(searchList.length > 3){
+      spacer = 'spacer-lg';
+    } 
+    if(width < mobileScreen){
+      return(
+        <div className={`${spacer}`}>
+       </div> 
+      )
+    } 
+  }
   return (
     <div>
        {/* Cards container */}
-      <Box  sx={{ mt: 5 }}>
+      <Box  sx={{ mt: 8 }}>
          {renderSearchBar()}
-        <Grid container sx={{justifyContent: "center", gap: {lg: 2, xs: 5}}} >
+         {spacer()}
+        <Grid container sx={{mt: {xs: 5} ,justifyContent: "center", gap: {lg: 2, xs: 5}}} >
           {renderUserCard()}
         </Grid>
       </Box>

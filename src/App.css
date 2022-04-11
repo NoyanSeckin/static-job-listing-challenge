@@ -119,7 +119,16 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 28vh;
+  top: 26vh;
+}
+
+.spacer{
+  height: 60px;
+  margin: 0 0 -50px 0;
+}
+
+.spacer-lg{
+  height: 70px;
 }
 .d-none{
   display: none;
